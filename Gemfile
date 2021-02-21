@@ -5,3 +5,5 @@ gem "jekyll-paginate"
 gem 'jekyll-tagging'
 gem "jekyll-sitemap"
 gem 'eventmachine', '~> 1.0.0'
+gem 'jekyll-spaceship'
+gem 'webrick'

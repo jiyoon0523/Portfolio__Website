@@ -63,10 +63,12 @@
 }
 
 .post-image {
-    background-size: cover;
+    //JY주석
+    //background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: $light-gray;
+    //JY주석
+    //background-color: $light-gray;
   &:after {
     content: "";
     display: table;
@@ -92,8 +94,21 @@
   }
 
   img {
-    margin: 30px 0;
+    //JY 주석
+    //margin: 30px 0;
+    max-height: min-content;
+
   }
+  .round{
+    display: block;
+    border-radius: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .marginfat{
+    margin: 30%;
+  }
+  
   
   //HW Added...
   .mermaid{
@@ -106,7 +121,24 @@
 
 .post__content {
   margin-bottom: 40px;
+ //HW
+  figure {
+    img {
+      border-radius: 3px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    figcaption {
+      margin-top: 5px;
+      font-style: italic;
+      font-size: small;
+    }
+  }
+  
 }
+
+
 
 .post__share {
   display: flex;

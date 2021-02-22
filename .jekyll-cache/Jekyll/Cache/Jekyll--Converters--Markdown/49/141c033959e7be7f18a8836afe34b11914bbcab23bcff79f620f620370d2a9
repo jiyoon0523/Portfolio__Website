@@ -1,0 +1,74 @@
+I"/<hr />
+
+<hr />
+<hr />
+<h2 id="-project-overview">🌊 Project Overview</h2>
+
+<p><strong><font size="4"> 눈 떠 보니 깊은 바닷속? 미션을 수행하고 바다 세계를 구하자!</font></strong></p>
+
+<p><strong><font size="4">소개/ </font></strong> 어드벤처 인디 게임 ABZÛ를 타겟으로 삼아 동일한 기능 구현<br />
+<strong><font size="4">기간/ </font></strong> 2020.08.10~2020.09.15 (5주)<br />
+<strong><font size="4">환경/ </font></strong> Unity 2019.4.8f1 3D, Visual Studio 2017<br />
+<strong><font size="4">역할/ </font></strong> 카메라 뷰&amp; 플레이어 조작, 튜토리얼, 미션</p>
+
+<hr />
+
+<h2 id="-contents">🌊 Contents</h2>
+
+<h4 id="1-카메라-뷰-플레이어-조작">1. 카메라 뷰&amp; 플레이어 조작</h4>
+<ul>
+  <li>키보드와 마우스를 이용한 플레이어 이동 및 회전</li>
+  <li>마우스를 이용한 시점 조절</li>
+</ul>
+
+<h4 id="2-튜토리얼">2. 튜토리얼</h4>
+<ul>
+  <li>조작법 안내 UI 및 상태 구분</li>
+</ul>
+
+<h4 id="3-미션">3. 미션</h4>
+<ul>
+  <li>웅덩이에 갇힌 물고기 풀어주기</li>
+  <li>물고기와 함께 ballet</li>
+  <li>상어 석상에 앉아 명상하기</li>
+  <li>달성률 UI 업데이트</li>
+</ul>
+
+<hr />
+<h3 id="1-카메라-뷰-플레이어-조작-1">1. 카메라 뷰&amp; 플레이어 조작</h3>
+<h4 id="카메라-뷰">카메라 뷰</h4>
+<p>카메라는 기본적으로 플레이어의 뒤에서 플레이어를 따라가지만, 마우스를 상하좌우로 이동해 플레이어의 위, 아래, 양 옆에서 플레이어를 바라보게 할 수 있다. 이러한 시점 조절은 바닷속 풍경을 360°로 감상할 수 있도록 만들어 보다 풍부한 플레이 경험을 제공한다.</p>
+<h4 id="플레이어">플레이어</h4>
+<p>방향키로 진행 방향을 조절하고, WASD 키로 회전 등의 행동을 실행한다.<br />
+마우스 클릭으로 헤엄 속력을 조절한다.</p>
+<h4 id="카메라-뷰-플레이어">카메라 뷰+ 플레이어</h4>
+<p>플레이어의 진행 방향을 조절하는 동시에 마우스를 움직여, 역동적으로 방향과 시점을 바꾸며 바닷속을 탐험할 수 있다.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js">  <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">.top</span><span class="dl">'</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">html, body</span><span class="dl">'</span><span class="p">).</span><span class="nx">stop</span><span class="p">().</span><span class="nx">animate</span><span class="p">({</span> <span class="na">scrollTop</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span> <span class="dl">'</span><span class="s1">slow</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">swing</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">scroll</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">()</span> <span class="o">&gt;</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">())</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">.top</span><span class="dl">'</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">top-active</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">.top</span><span class="dl">'</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">top-active</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">};</span>
+  <span class="p">});</span></code></pre></figure>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoic3RhdGVEaWFncmFtLXYyXG5bKl0gLS0-IEFjdGl2ZVxuc3RhdGUgQWN0aXZlIHtcblsqXSAtLT4gTWFpblJvb21cbk1haW5Sb29tIC0tPiBbKl0gOiBxdWl0XG5NYWluUm9vbSAtLT4gRXhlcmNpc2UgOiBzZWxlY3RNdXNpY1xuRXhlcmNpc2UgLS0-IFJlc3VsdCA6IHRpbWVFbmRcblJlc3VsdCAtLT4gTWFpblJvb20gOiBhZGRSYW5rXG59XG5BY3RpdmUgLS0-IFsqXSIsIm1lcm1haWQiOm51bGx9" /></p>
+
+<p>Yeah, and if you were the pope they’d be all, “Straighten your pope hat.” And “Put on your good vestments.” Noooooo! Perhaps, but perhaps your civilization is merely the sewer of an even greater society above you!</p>
+
+<hr />
+
+<h3 id="2-튜토리얼-1">2. 튜토리얼</h3>
+
+<p>가나다라 <strong>마바사아</strong></p>
+
+<hr />
+
+<h3 id="3-미션-1">3. 미션</h3>
+
+<hr />
+
+:ET

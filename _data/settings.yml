@@ -1,22 +1,25 @@
 #-------------------------------
 # General Site Settings
-title: Zolan
-logo: logo.svg # You can add own logo.
-description: Zolan is modern minimal theme for Jekyll
+title: Jiyoon's Devlog
+logo: none.svg # You can add own logo. #로고 없으면 title이 나옴
+description: 
 
 
 #-------------------------------
 # Author Settings
 author:
-  name: Alex Rodriguez
-  image: 01.jpg
-  say-hello: Hello, I’m <strong>Alex Rodriguez</strong>
-  bio: Designs, talks, and writes about <strong>web</strong>, <strong>ethics</strong>, <strong>privacy</strong>, and dev. I share design tutorials, free resources and inspiration. Loves <a href="#">music</a> & riding his bicycle.
-
+  name: Jiyoon Kim
+  image: none.jpg
+  say-hello: G'day! I’m <strong>지윤(Jiyoon)</strong>.
+  bio: XR developer who just graduated with an anthropology degree. Aspires to be part of creating a world, striving to make it a good one.😉 Based in Seoul, South Korea.
 
 #-------------------------------
 # Contact links
 twitter: https://twitter.com/ # Add your Twitter handle
+#JY 아래 SNS 아이콘 필요
+youtube: https://youtube.com/
+brunch: https://brunch.com/
+
 facebook: https://facebook.com/ # Add your Facebook handle
 dribbble: https://dribbble.com/ # Add your Dribbble handle
 instagram: https://instagram.com/ # Add your Instagram handle

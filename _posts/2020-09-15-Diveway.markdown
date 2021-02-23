@@ -5,11 +5,6 @@ date:   2020-09-15 15:01:35 +0300
 image:  Diveway_Sample.jpg
 tags:   [Game,Ocean,PC]
 ---
----
- 
-
----
----
 ## 🌊 Project Overview
   
 **<font size="4"> 눈 떠 보니 깊은 바닷속? 미션을 수행하고 바다 세계를 구하자!</font>**  
@@ -17,47 +12,152 @@ tags:   [Game,Ocean,PC]
 **<font size="4">소개/ </font>** 어드벤처 인디 게임 ABZÛ를 타겟으로 삼아 동일한 기능 구현  
 **<font size="4">기간/ </font>** 2020.08.10~2020.09.15 (5주)  
 **<font size="4">환경/ </font>** Unity 2019.4.8f1 3D, Visual Studio 2017  
-**<font size="4">역할/ </font>** 카메라 뷰& 플레이어 조작, 튜토리얼, 미션
+**<font size="4">역할/ </font>** 카메라 뷰 조작, 플레이어 조작, 튜토리얼, 미션
 
 ---
 
-## 🌊 Contents
+## 🌊 Design& Schedule
 
-#### 1. 카메라 뷰& 플레이어 조작
-* 키보드와 마우스를 이용한 플레이어 이동 및 회전
+**<font size="4">프로젝트 구조</font>**
+
+**<font size="4">개발 일정</font>**
+
+---
+
+## 🌊 Development
+
+**[1. 카메라 뷰 조작](#1-카메라-뷰-조작)**
+{: .bold}   
 * 마우스를 이용한 시점 조절
 
-#### 2. 튜토리얼
-* 조작법 안내 UI 및 상태 구분
+**[2. 플레이어 조작](#2-플레이어-조작)**
+{: .bold}    
+* 키보드와 마우스를 이용한 플레이어 이동 및 회전
 
-#### 3. 미션
+**[3. 튜토리얼](#3-튜토리얼)**
+{: .bold}   
+* 조작법 안내 UI
+* bool값을 이용한 수행 여부 판단
+
+#### 4. 미션
 * 웅덩이에 갇힌 물고기 풀어주기
 * 물고기와 함께 ballet
 * 상어 석상에 앉아 명상하기
 * 달성률 UI 업데이트
 
 ---
-### 1. 카메라 뷰& 플레이어 조작
-#### 카메라 뷰  
-카메라는 기본적으로 플레이어의 뒤에서 플레이어를 따라가지만, 마우스를 상하좌우로 이동해 플레이어의 위, 아래, 양 옆에서 플레이어를 바라보게 할 수 있다. 이러한 시점 조절은 바닷속 풍경을 360°로 감상할 수 있도록 만들어 보다 풍부한 플레이 경험을 제공한다.
-#### 플레이어  
-방향키로 진행 방향을 조절하고, WASD 키로 회전 등의 행동을 실행한다.  
-마우스 클릭으로 헤엄 속력을 조절한다.
-#### 카메라 뷰+ 플레이어
-플레이어의 진행 방향을 조절하는 동시에 마우스를 움직여, 역동적으로 방향과 시점을 바꾸며 바닷속을 탐험할 수 있다.
+### 1. 카메라 뷰 조작  
 
-{% highlight js %}
-  $('.top').click(function () {
-    $('html, body').stop().animate({ scrollTop: 0 }, 'slow', 'swing');
-  });
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > $(window).height()) {
-      $('.top').addClass("top-active");
-    } else {
-      $('.top').removeClass("top-active");
-    };
-  });
-{% endhighlight %}
+카메라는 기본적으로 플레이어의 뒤에서 플레이어를 따라가지만, 마우스를 상하좌우로 이동해 플레이어의 위, 아래, 양 옆에서 플레이어를 바라보게 할 수 있다. 이러한 시점 조절은 바닷속 풍경을 360°로 감상할 수 있도록 만들어 보다 풍부한 플레이 경험을 제공한다.  
+
+![]({{site.baseurl}}/images/Diveway_CamPos_gif.gif)  
+
+
+이와 같은 카메라 뷰를 구현하기 위해 다음 두 가지 방법을 사용하였다.
+{: .bold}
+
+###### 1. 항상 플레이어 뒤에 위치하는 CamPos1과 플레이어 주변을 도는 CamPos2를 만든다.  
+
+![]({{site.baseurl}}/images/Diveway_Campos1and2.jpg) 
+
+- CamPos2가 마우스 입력에 따라 플레이어 주변을 돌게 하는 코드
+{% highlight c# %}
+  void RotateByMouse()
+    {
+       // 마우스 입력을 누적하고
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        mx += mouseX * rotSpeed * Time.deltaTime;
+        my += mouseY * rotSpeed * Time.deltaTime;
+        my = Mathf.Clamp(my, -90.0f, 90.0f);
+
+       // 알맞은 삼각함수를 적용해 플레이어 주변을 돌게 함
+        float x = dist * Mathf.Cos(mx);
+        float z = dist * Mathf.Sin(mx);
+        float y = dist * Mathf.Tan(my);
+
+        tr.position = new Vector3(target.transform.position.x + x, target.transform.position.y + y, target.transform.position.z + z);
+        // 항상 플레이어를 보도록 함
+        tr.LookAt(target.transform);
+    }
+{% endhighlight %} 
+
+###### 2. FSM을 이용해 카메라의 State를 Intro, Tutorial, Play_Behind, Play_Around로 구분하고, 각 상태별로 다른 메서드에 따라 움직이도록 한다.
+
+<hr>
+
+- 카메라의 State 구분
+ {% highlight c# %}
+ enum CameraState
+    {
+        Intro,
+        Tutorial,
+        Play_Behind,
+        Play_Around
+    }
+    void Update()
+    {
+        switch (state)
+        {
+            case CameraState.Intro:
+                Intro();
+                break;
+            case CameraState.Tutorial:
+                Tutorial();
+                break;
+            case CameraState.Play_Behind:
+                Play_Behind();
+                break;
+            case CameraState.Play_Around:
+                Play_Around();
+                break;
+        }
+    }
+ {% endhighlight %}
+
+
+- Play_Behind와 Play_Around 사이를 오가는 코드
+{% highlight c# %}
+private void Play_Behind()
+    {
+        transform.position = target1.position;
+        transform.forward = target1.forward;
+
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        // 마우스의 상하좌우 이동이 있으면 Play_Around로 전환
+        if(mouseX!= 0 || mouseY!=0)
+        {
+            transform.position = Vector3.Lerp(transform.position, target2.position, 2 * Time.deltaTime);
+            transform.forward = Vector3.Lerp(transform.forward, target2.forward, 2 * Time.deltaTime);
+            state = CameraState.Play_Around;
+        }
+    }
+    private void Play_Around()
+    {
+        transform.position = target2.position;
+        transform.forward = target2.forward;
+
+        // 마우스를 클릭해 일반 또는 부스트 헤엄이 시작되면 Play_Behind로 전환
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            transform.position = Vector3.Lerp(transform.position, target1.position, 2 * Time.deltaTime);
+            transform.forward = Vector3.Lerp(transform.forward, target1.forward, 2 * Time.deltaTime);
+            state = CameraState.Play_Behind;
+        }
+    }
+{% endhighlight %}  
+
+### 2. 플레이어 조작  
+
+방향키로 진행 방향을 조절하고, WASD 키로 회전 등의 행동을 실행한다.  
+Character Controller를 이용해 앞으로 헤엄치게 하고, 마우스 클릭으로 헤엄 속력을 조절한다.
+대표로 하나만
+
+* 플레이어 조작 코드
+playermovemidnight
 
 @startmermaid
 stateDiagram-v2
@@ -72,13 +172,84 @@ stateDiagram-v2
     Active --> [*]
 @endmermaid
 
-Yeah, and if you were the pope they'd be all, "Straighten your pope hat." And "Put on your good vestments." Noooooo! Perhaps, but perhaps your civilization is merely the sewer of an even greater society above you!
+* 물 속에서 부유하는 느낌을 내기 위해 시간 흐름에 따라 y값에 변화를 주는 코드
+{% highlight c# %}
+  private void FloatPlayer()
+      {
+          float y = amp * Mathf.Sin(currentTime * floatSpeed); //위아래 
+          transform.position += Vector3.up * y;
+      }
+{% endhighlight %} 
+
 
 ---
 
-### 2. 튜토리얼
+### 3. 튜토리얼
 
-가나다라 __마바사아__
+튜토리얼에서는 헤엄, 부스트 헤엄, 방향 변경의 세 기능을 순서대로 사용해 보도록 한다. UI의 안내를 따라야 기능을 사용해야만 다음 튜토리얼로 진행할 수 있도록 하기 위해 Swim, Boost, Turn 각 튜토리얼 단계의 실행 여부를 __bool__ 값으로 판별하였다.  
+
+![]({{site.baseurl}}/images/Diveway_Tutorial_gif.gif)  
+
+{% highlight c# %}
+  private void Tutorial()
+      {
+          transform.position = Vector3.Lerp(transform.position, target1.position, 5 * Time.deltaTime);
+          transform.forward = Vector3.Lerp(transform.forward, target1.forward, 5 * Time.deltaTime);
+          currentTime += Time.deltaTime;
+          if (isSwimUIState == true)
+          {
+              if (swimUI.activeSelf == false && currentTime>1.5f)
+                  swimUI.SetActive(true);
+              else
+              {
+                  if (Input.GetMouseButton(1))
+                  {
+                      swimUI.SetActive(false);
+                      isSwimUIState = false;
+                      isBoostUIState = true;
+                      currentTime = 0;
+                  }
+              }
+          }
+          else if (isBoostUIState == true)
+          {
+              if (boostUI.activeSelf == false)
+              {
+                  currentTime += Time.deltaTime;
+                  if (currentTime > 3)
+                      boostUI.SetActive(true);
+              }
+              else
+              {
+                  if (Input.GetMouseButton(0))
+                  {
+                      boostUI.SetActive(false);
+                      isBoostUIState = false;
+                      isTurnUIState = true;
+                      currentTime = 0;
+                  }
+              }
+
+          }
+          else if (isTurnUIState == true)
+          {
+              if (turnUI.activeSelf == false)
+              {
+                  currentTime += Time.deltaTime;
+                  if (currentTime > 1)
+                      turnUI.SetActive(true);
+              }
+              else
+              {
+                  if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.D)) 
+                  {
+                      turnUI.SetActive(false);
+                      state = CameraState.Play_Behind;
+                  }
+              }
+          }
+      }
+{% endhighlight %}
 
 ---
 

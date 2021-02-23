@@ -96,14 +96,14 @@
   img {
     //JY 주석
     //margin: 30px 0;
+    display: block;
     max-height: min-content;
+    margin-left: auto;
+    margin-right: auto;
 
   }
   .round{
-    display: block;
     border-radius: 100%;
-    margin-left: auto;
-    margin-right: auto;
   }
   .marginfat{
     margin: 30%;
@@ -135,10 +135,18 @@
       font-size: small;
     }
   }
-  
+ 
 }
-
-
+//HW
+.bold {
+  a{
+    font-size: 4;
+    color: black;
+    &:hover{
+      color:grey;
+    }
+  }
+}  
 
 .post__share {
   display: flex;

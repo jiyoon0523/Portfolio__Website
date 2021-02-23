@@ -5,10 +5,32 @@ date:   2020-10-23 15:01:35 +0300
 image:  03.jpg
 tags:   [Education,Environment,VR]
 ---
-Yeah, and if you were the pope they'd be all, "Straighten your pope hat." And "Put on your good vestments." Noooooo! Perhaps, but perhaps your civilization is merely the sewer of an even greater society above you!
+## 🌳 Project Overview
+  
+**<font size="4"> 쓰레기 행성이 되어버린 미래 지구, 올바른 분리수거 방법을 익혀 로봇들을 도와주자! </font>**  
 
-You lived before you met me?! Ow, my spirit! Humans dating robots is sick. __You people wonder why I'm still single?__ *It's 'cause all the fine robot sisters are dating humans!* I guess if you want children beaten, you have to do it yourself.
+**<font size="4">소개/ </font>** VR상에서 직접 움직이고 NPC와 상호작용하며 분리수거 방법을 익히는 환경교육 컨텐츠  
+**<font size="4">기간/ </font>** 2020.????~2020.10-23 (??주)  
+**<font size="4">환경/ </font>** Unity 2019.4.8f1 3D, Visual Studio 2017  
+**<font size="4">역할/ </font>** 기획, 플레이어-NPC 상호작용, NPC 대사& 애니메이션
 
+---
+
+## 🌳 Contents
+
+**[1. 기획](#1-기획)**
+{: .bold}   
+* 
+
+**[2. 플레이어-NPC 상호작용](#2-플레이어-NPC-상호작용)**
+{: .bold}    
+* 
+
+**[3. NPC 대사& 애니메이션](#3-NPC-대사&-애니메이션)**
+{: .bold}   
+* 
+
+---
 ## Are you crazy? I can't swallow that.
 
 Oh, I don't have time for this. I have to go and buy a single piece of fruit with a coupon and then return it, making people wait behind me while I complain. Meh. So, how 'bout them Knicks? Also Zoidberg.

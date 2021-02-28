@@ -19,6 +19,9 @@ tags:   [Game,Ocean,PC]
 ## 🌊 Design& Schedule
 
 **<font size="4">프로젝트 구조</font>**
+<figure>
+<img src="{{ site.baseurl }}/images/Diveway_Structure_White.jpg">
+</figure>
 
 **<font size="4">개발 일정</font>**
 
@@ -254,6 +257,10 @@ stateDiagram-v2
 ---
 
 ### 3. 미션
+
+<figure>
+<img src="{{ site.baseurl }}/images/Diveway_Puddle.jpg">
+</figure>
 
 ---
 
